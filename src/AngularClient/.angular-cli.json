@@ -9,7 +9,27 @@
       "outDir": "wwwroot",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+        {
+          "glob": "**/*.js",
+          "input": "../node_modules/oidc-client/dist/",
+          "output": "./"
+        },
+        {
+          "glob": "signin-callback-oidc.html",
+          "input": "./",
+          "output": "./"
+        },
+        {
+          "glob": "signout-callback-oidc.html",
+          "input": "./",
+          "output": "./"
+        },
+        {
+          "glob": "renew-callback-oidc.html",
+          "input": "./",
+          "output": "./"
+        }
       ],
       "index": "index.html",
       "main": "main.ts",
