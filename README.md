@@ -1,2 +1,2 @@
-# angualr-identitysever
-A sample application of usetting up an Agular application to autheticate against IdentityServer4
+# Angular with IdentityServer4
+A sample application showing how to set up an Agular application to autheticate against IdentityServer4
