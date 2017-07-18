@@ -61,6 +61,8 @@ namespace OidcDemo.Services.Identity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
+            // TODO (Andrew Alderson July 18, 2017) Make this an Extension method
+            var isAjaxCall = HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
@@ -70,7 +72,7 @@ namespace OidcDemo.Services.Identity.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    return isAjaxCall ? Content(returnUrl) : RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
