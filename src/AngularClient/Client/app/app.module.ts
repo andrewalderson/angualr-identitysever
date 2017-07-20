@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { SharedModule } from './shared';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthService } from './shared/services/auth.service';
-import { AuthGuardService } from './shared/services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -16,9 +16,10 @@ import { AuthGuardService } from './shared/services/auth-guard.service';
     BrowserModule,
     FormsModule,
     HttpModule,
+    SharedModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [AuthService, AuthGuardService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
