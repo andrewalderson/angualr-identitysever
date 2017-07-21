@@ -1,9 +1,8 @@
-﻿import { NgModule, ModuleWithProviders } from '@angular/core';
+﻿import { NgModule, ModuleWithProviders, SkipSelf, Optional, APP_INITIALIZER } from '@angular/core';
 import {
     AuthService,
     AuthGuardService
 } from "./exports";
-
 
 @NgModule({
   imports: [
@@ -19,6 +18,13 @@ export class SharedModule {
                 AuthService,
                 AuthGuardService
             ]
+        }
+    }
+
+    constructor( @Optional() @SkipSelf() parentModule: SharedModule) {
+        if (parentModule) {
+            throw new Error(
+                'SharedModule is already loaded. Import it in the AppModule only');
         }
     }
 }
