@@ -1,38 +1,33 @@
-﻿import { Injectable, EventEmitter } from '@angular/core';
+﻿import { Injectable, Inject, Optional } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject';
 import { UserManager, User } from 'oidc-client';
-
-// TODO (Andrew Alderson July 12, 2017) move these settings to a config service
-const settings: object = {
-    authority: 'http://localhost:5001',
-    client_id: 'angular-client',
-    redirect_uri: window.location.origin + "/signin-callback-oidc.html",
-    post_logout_redirect_uri: window.location.origin + "/signout-callback-oidc.html",
-    response_type: 'id_token token',
-
-    scope: 'openid profile',
-
-    loadUserInfo: true,
-    silent_redirect_uri: window.location.origin + "/renew-callback-oidc.html",
-
-    automaticSilentRenew: true,
-
-    revokeAccessTokenOnSignout: true,
-
-    filterProtocolClaims: true
-}
+import { APP_CONFIG, AppConfig } from 'configuration';
 
 @Injectable()
 export class AuthService {
 
-    private userManager: UserManager;
+    constructor( @Inject(APP_CONFIG) appConfig: AppConfig) {
 
-    readonly authenticationChallenge$ = new Subject<boolean>();
+        this.userManager = new UserManager(
+            {
+                authority: appConfig.identityUrl,
+                client_id: 'angular-client',
+                redirect_uri: appConfig.baseUrl + "/signin-callback-oidc.html",
+                post_logout_redirect_uri: appConfig.baseUrl  + "/signout-callback-oidc.html",
+                response_type: 'id_token token',
 
-    constructor() {
-        // TODO (Andrew Alderson July 12, 2017) we should inject a factory that returns a configured UserManager.
-        this.userManager = new UserManager(settings);
+                scope: 'openid profile',
+
+                loadUserInfo: true,
+                silent_redirect_uri: appConfig.baseUrl  + "/renew-callback-oidc.html",
+
+                automaticSilentRenew: true,
+
+                revokeAccessTokenOnSignout: true,
+
+                filterProtocolClaims: true
+            });
 
         this.userManager.getUser().then(user => {
             this._user = user;
@@ -41,6 +36,10 @@ export class AuthService {
             console.log(err);
         });
     }
+
+    private userManager: UserManager;
+
+    readonly authenticationChallenge$ = new Subject<boolean>();
 
     private _user: User;
 
