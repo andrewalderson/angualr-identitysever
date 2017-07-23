@@ -34,10 +34,10 @@ namespace OidcDemo.Services.Identity.Configuration
                     ClientName = "Angular OpenId Client",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
-                    RedirectUris =           { $"{clientsUrl["Angular"]}/signin-callback-oidc.html" },
+                    RedirectUris =  new List<string>{ $"{clientsUrl["Angular"]}/signin-callback-oidc.html", $"{clientsUrl["Angular"]}/renew-callback-oidc.html" },
                     RequireConsent = false,
-                    PostLogoutRedirectUris = { $"{clientsUrl["Angular"]}/signout-callback-oidc.html" },
-                    AllowedCorsOrigins =     { $"{clientsUrl["Angular"]}" },
+                    PostLogoutRedirectUris = new List<string>{ $"{clientsUrl["Angular"]}/signout-callback-oidc.html" },
+                    AllowedCorsOrigins =     new List<string>{ $"{clientsUrl["Angular"]}" },
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
