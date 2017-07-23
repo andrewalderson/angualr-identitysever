@@ -29,9 +29,30 @@ export class AuthService {
                 filterProtocolClaims: true
             });
 
+        this.userManager.clearStaleState();
+
+        this.userManager.events.addUserLoaded((user) => {
+            this.updateUser(user);
+        });
+
+        this.userManager.events.addUserUnloaded(() => {
+            this.updateUser();
+        });
+
+        this.userManager.events.addUserSignedOut(() => {
+            this.updateUser();
+        });
+
         this.userManager.getUser().then(user => {
-            this._user = user;
-            this.authenticationChallenge$.next(user !== null);
+            if (user) {
+                if (user.expired) {
+                    this.renewToken();
+                } else {
+                    this.updateUser(user);
+                }
+            } else {
+                this.updateUser();
+            }
         }).catch((err) => {
             console.log(err);
         });
@@ -57,5 +78,20 @@ export class AuthService {
 
     signout() {
         this.userManager.signoutRedirect();
+    }
+
+    renewToken() {
+        this.userManager.signinSilent()
+            .then((user) => {
+                this.updateUser(user);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    private updateUser(user: User = null) {
+        this._user = user;
+        this.authenticationChallenge$.next(user !== null);
     }
 }
