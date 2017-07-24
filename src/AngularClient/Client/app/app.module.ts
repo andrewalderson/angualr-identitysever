@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { SharedModule } from './shared';
 import { ConfigurationModule } from './configuration';
+import { AuthenticationModule } from './authentication';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +18,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    AuthenticationModule,
     ConfigurationModule.forRoot(),
     SharedModule.forRoot(),
     AppRoutingModule

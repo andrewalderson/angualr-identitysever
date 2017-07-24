@@ -17,8 +17,9 @@
       "dom"
     ],
     "paths": {
-      "configuration":  [ "app/configuration" ],
-      "shared": [ "app/shared" ]
+      "configuration": [ "app/configuration" ],
+      "shared": [ "app/shared" ],
+      "authentication": [ "app/authentication" ]
     }
   }
 }

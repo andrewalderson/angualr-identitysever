@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -42,24 +43,21 @@ namespace OidcDemo.Web.AngularClient
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
-
             app.Use(async (context, next) =>
             {
-              await next();
+                  await next();
 
-              // If there's no available file and the request doesn't contain an extension, we're probably trying to access a page.
-              // Rewrite request to use app root
-              if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value) && !context.Request.Path.Value.StartsWith("/api"))
-              {
-                context.Request.Path = "/index.html";
-                context.Response.StatusCode = 200; // Make sure we update the status code, otherwise it returns 404
-                await next();
-              }
+                  if (!Path.HasExtension(context.Request.Path.Value) && !context.Request.Path.Value.StartsWith("/configuration"))
+                  {
+                    context.Request.Path = new PathString("/index.html");
+                    await next();
+                  }
             });
 
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
-    }
+          }
     }
 }

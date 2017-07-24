@@ -9,15 +9,15 @@ export class AuthGuardService implements CanActivate, CanLoad {
 
     constructor(private authService: AuthService, private router: Router) { }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.isAuthenticated();
     }
 
-    canLoad(route: Route): Observable<boolean> {
+    canLoad(route: Route) {
         return this.isAuthenticated();
     }
 
-    private isAuthenticated(): Observable<boolean> {
+    private isAuthenticated() {
         let isAuthenticated = this.authService.authenticationChallenge$;
         isAuthenticated.subscribe(authenticated => {
             if (!authenticated) {

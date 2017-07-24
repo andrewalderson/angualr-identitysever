@@ -1,6 +1,5 @@
 ﻿import { Injectable, Inject, Optional } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
-import { Subject } from 'rxjs/Subject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { UserManager, User } from 'oidc-client';
 import { APP_CONFIG, AppConfig } from 'configuration';
 
@@ -13,7 +12,7 @@ export class AuthService {
             {
                 authority: appConfig.identityUrl,
                 client_id: 'angular-client',
-                redirect_uri: appConfig.baseUrl + "/signin-callback-oidc.html",
+                redirect_uri: appConfig.baseUrl + "/signin-callback",
                 post_logout_redirect_uri: appConfig.baseUrl  + "/signout-callback-oidc.html",
                 response_type: 'id_token token',
 
@@ -60,7 +59,7 @@ export class AuthService {
 
     private userManager: UserManager;
 
-    readonly authenticationChallenge$ = new Subject<boolean>();
+    readonly authenticationChallenge$ = new ReplaySubject<boolean>(1);
 
     private _user: User;
 
@@ -74,6 +73,10 @@ export class AuthService {
 
     signin() {
         this.userManager.signinRedirect();
+    }
+
+    signinCallback() {
+        this.userManager.signinRedirectCallback();
     }
 
     signout() {
