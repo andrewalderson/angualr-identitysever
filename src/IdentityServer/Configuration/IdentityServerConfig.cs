@@ -36,7 +36,7 @@ namespace OidcDemo.Services.Identity.Configuration
                     AllowAccessTokensViaBrowser = true,
                     RedirectUris =  new List<string>{ $"{clientsUrl["Angular"]}/signin-callback", $"{clientsUrl["Angular"]}/renew-callback-oidc.html" },
                     RequireConsent = false,
-                    PostLogoutRedirectUris = new List<string>{ $"{clientsUrl["Angular"]}/signout-callback-oidc.html" },
+                    PostLogoutRedirectUris = new List<string>{ $"{clientsUrl["Angular"]}/signout-callback" },
                     AllowedCorsOrigins =     new List<string>{ $"{clientsUrl["Angular"]}" },
                     AllowedScopes =
                     {

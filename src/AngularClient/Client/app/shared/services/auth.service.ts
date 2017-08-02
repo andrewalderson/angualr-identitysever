@@ -13,7 +13,7 @@ export class AuthService {
                 authority: appConfig.identityUrl,
                 client_id: 'angular-client',
                 redirect_uri: appConfig.baseUrl + "/signin-callback",
-                post_logout_redirect_uri: appConfig.baseUrl  + "/signout-callback-oidc.html",
+                post_logout_redirect_uri: appConfig.baseUrl  + "/signout-callback",
                 response_type: 'id_token token',
 
                 scope: 'openid profile',
@@ -25,7 +25,9 @@ export class AuthService {
 
                 revokeAccessTokenOnSignout: true,
 
-                filterProtocolClaims: true
+                filterProtocolClaims: true,
+
+                monitorSession: false
             });
 
         this.userManager.clearStaleState();
@@ -81,6 +83,10 @@ export class AuthService {
 
     signout() {
         this.userManager.signoutRedirect();
+    }
+
+    signoutCallback() {
+        this.userManager.signoutRedirectCallback();
     }
 
     renewToken() {

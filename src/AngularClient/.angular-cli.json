@@ -16,11 +16,6 @@
           "output": "./"
         },
         {
-          "glob": "signout-callback-oidc.html",
-          "input": "./",
-          "output": "./"
-        },
-        {
           "glob": "renew-callback-oidc.html",
           "input": "./",
           "output": "./"

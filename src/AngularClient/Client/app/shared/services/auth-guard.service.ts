@@ -1,6 +1,8 @@
 ﻿import { Injectable } from '@angular/core';
 import { CanActivate, CanLoad, Router, Route, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/first'
+import 'rxjs/add/operator/do'
 
 import { AuthService } from './auth.service';
 
@@ -18,12 +20,12 @@ export class AuthGuardService implements CanActivate, CanLoad {
     }
 
     private isAuthenticated() {
-        let isAuthenticated = this.authService.authenticationChallenge$;
-        isAuthenticated.subscribe(authenticated => {
-            if (!authenticated) {
-                this.authService.signin();
-            }
-        });
-        return isAuthenticated;
+        return this.authService.authenticationChallenge$
+            .first()
+            .do((authenticated) => {
+                if (!authenticated) {
+                    this.authService.signin();
+                }
+            });
     }
 }
