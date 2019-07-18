@@ -1,12 +1,14 @@
 ﻿using IdentityServer4;
 using IdentityServer4.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
 namespace OidcDemo.Services.Identity.Configuration
 {
     public static class IdentityServerConfig
     {
-        public static IEnumerable<ApiResource> GetApis()
+        public static IEnumerable<ApiResource> GetApiResources()
         {
             return new List<ApiResource>
             {
@@ -14,7 +16,7 @@ namespace OidcDemo.Services.Identity.Configuration
             };
         }
 
-        public static IEnumerable<IdentityResource> GetResources()
+        public static IEnumerable<IdentityResource> GetIdentityResources()
         {
             return new List<IdentityResource>
             {
@@ -23,28 +25,55 @@ namespace OidcDemo.Services.Identity.Configuration
             };
         }
 
-        public static IEnumerable<Client> GetClients(Dictionary<string, string> clientsUrl)
+        public static IEnumerable<Client> GetClients(IHostingEnvironment environment, IConfiguration configuration)
         {
-            return new List<Client>
+            var clientUrls = new Dictionary<string, string>
             {
-                // JavaScript Client
+                { "AngularClient", configuration.GetValue<string>("Urls:AngularClient") }
+            };
+
+            var clients = new List<Client>();
+
+            if (environment.IsDevelopment())
+            {
+                clients.Add(
+                    new Client
+                    {
+                        ClientId = "postman-client",
+                        ClientName = "Postman Test Client",
+                        AllowedGrantTypes = GrantTypes.Code,
+                        RequireConsent = false,
+                        RedirectUris = { "https://www.getpostman.com/oauth2/callback" },
+                        PostLogoutRedirectUris = { "https://www.getpostman.com" },
+                        AllowedCorsOrigins = { "https://www.getpostman.com" },
+                        AllowedScopes =
+                        {
+                            IdentityServerConstants.StandardScopes.OpenId,
+                            IdentityServerConstants.StandardScopes.Profile
+     
+                        },
+                        ClientSecrets = { new Secret("secret".Sha256()) }
+                    });
+
+            }
+            clients.Add(
                 new Client
                 {
                     ClientId = "angular-client",
                     ClientName = "Angular OpenId Client",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
-                    RedirectUris =  new List<string>{ $"{clientsUrl["Angular"]}/signin-callback", $"{clientsUrl["Angular"]}/renew-callback-oidc.html" },
+                    RedirectUris = new List<string> { $"{clientUrls["AngularClient"]}/signin-callback", $"{clientUrls["AngularClient"]}/renew-callback-oidc.html" },
                     RequireConsent = false,
-                    PostLogoutRedirectUris = new List<string>{ $"{clientsUrl["Angular"]}/signout-callback" },
-                    AllowedCorsOrigins =     new List<string>{ $"{clientsUrl["Angular"]}" },
+                    PostLogoutRedirectUris = new List<string> { $"{clientUrls["AngularClient"]}/signout-callback" },
+                    AllowedCorsOrigins = new List<string> { $"{clientUrls["AngularClient"]}" },
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Profile
                     }
-                }
-            };
+                });
+            return clients;
         }
     }
 }
