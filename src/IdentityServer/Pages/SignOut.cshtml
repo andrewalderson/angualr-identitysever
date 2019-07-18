@@ -1,0 +1,18 @@
+﻿@page
+@model PhilAndHope.Core.Identity.Api.Pages.SignOutModel
+@{
+    ViewData["Title"] = "Sign out";
+}
+
+<main class="container signout-container">
+    <h1>Phil & Hope</h1>
+    <p>Please confirm that you would like to sign out?</p>
+    <form id="signout-form" asp-page="SignOut">
+        <fieldset>
+            <input type="hidden" name="logoutId" value="@Model.LogoutId" />
+            <div class="form-group">
+                <button id="signout-button" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">Sign out</button>
+            </div>
+        </fieldset>
+    </form>
+</main>

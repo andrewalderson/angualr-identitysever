@@ -1,0 +1,54 @@
+﻿@page
+@model PhilAndHope.Core.Identity.Api.Pages.SignInModel
+@{
+    ViewData["Title"] = "Sign In";
+}
+
+<main class="container signin-container">
+    <div class="mdc-card modal signin-modal">
+        <div class="modal-body signin-modal-body">
+            <div class="brand signin-brand">
+                <h1>Phil & Hope</h1>
+            </div>
+            <form id="signin-form" class="form signin-form" asp-page="Signin" asp-route-returnurl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="All" class="error"></div>
+                <div class="form-row username-controls mdc-text-field" data-mdc-auto-init="MDCTextField">
+                    <input class="mdc-text-field__input" type="text" asp-for="Input.Username" required>
+                    <label class="mdc-floating-label" asp-for="Input.Username"></label>
+                    <div class="mdc-line-ripple"></div>
+                </div>
+                <div class="form-row password-controls mdc-text-field" data-mdc-auto-init="MDCTextField">
+                    <input class="mdc-text-field__input" type="password" asp-for="Input.Password" required>
+                    <label class="mdc-floating-label" asp-for="Input.Password"></label>
+                    <div class="mdc-line-ripple"></div>
+                </div>
+                <div class="form-row persist-controls mdc-form-field" data-mdc-auto-init="MDCFormField">
+                    <div class="mdc-checkbox" data-mdc-auto-init="MDCCheckbox">
+                        <input type="checkbox"
+                                class="mdc-checkbox__native-control"
+                                asp-for="Input.RememberMe" />
+                        <div class="mdc-checkbox__background">
+                            <svg class="mdc-checkbox__checkmark"
+                                    viewBox="0 0 24 24">
+                                <path class="mdc-checkbox__checkmark-path"
+                                        fill="none"
+                                        stroke="white"
+                                        d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+                            </svg>
+                            <div class="mdc-checkbox__mixedmark"></div>
+                        </div>
+                    </div>
+                    <label asp-for="Input.RememberMe"></label>
+                </div>
+                <div class="form-row submit-controls">
+                    <button type="submit" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+                        Sign in
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="signin-footer"></div>
+    </div>
+</main>
+
+

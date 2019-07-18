@@ -1,8 +1,10 @@
-FROM microsoft/aspnetcore:1.1 AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/aspnetcore-build:1.1 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
+RUN apt-get update -yq && apt-get upgrade -yq && apt-get install -yq curl git nano
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && apt-get install -yq nodejs build-essential
 WORKDIR /src
 COPY ["src/IdentityServer/IdentityServer.csproj", "src/IdentityServer/"]
 RUN dotnet restore "src/IdentityServer/IdentityServer.csproj"
