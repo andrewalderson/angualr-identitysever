@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  sql.data:
+    image: microsoft/mssql-server-linux:2017-latest
+
+  angularclient:
+    image: ${DOCKER_REGISTRY-}angularclient
+    build:
+      context: .
+      dockerfile: src/AngularClient/Dockerfile
+
+  identityserver:
+    image: ${DOCKER_REGISTRY-}identityserver
+    build:
+      context: .
+      dockerfile: src/IdentityServer/Dockerfile
+    depends_on:
+      - sql.data
+
