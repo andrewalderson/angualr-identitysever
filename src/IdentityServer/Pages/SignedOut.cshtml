@@ -1,0 +1,36 @@
+﻿@page
+@model PhilAndHope.Core.Identity.Api.Pages.SignedOutModel
+@{
+    ViewData["Title"] = "Signed Out";
+}
+
+<main class="container signout-container" style="@(Model.AutomaticRedirectAfterSignOut ? "visibility: hidden" : null)">
+    <h1>Phil & Hope</h1>
+    <p>You have successfully signed out of the application.</p>
+
+    @if (Model.PostLogoutRedirectUri != null)
+    {
+        <div>
+            Click <a class="postLogoutRedirect-link" href="@Model.PostLogoutRedirectUri">here</a> to return to the application.
+        </div>
+    }
+
+    @if (Model.SignOutIframeUrl != null)
+    {
+        <iframe width="0" height="0" class="signout-iframe" src="@Model.SignOutIframeUrl"></iframe>
+    }
+</main>
+@section scripts
+    {
+    @if (Model.AutomaticRedirectAfterSignOut)
+    {
+        <script>
+            window.addEventListener("load", function () {
+                var a = document.querySelector("a.postLogoutRedirect-link");
+                if (a) {
+                    window.location = a.href;
+                }
+            });
+        </script>
+    }
+}
