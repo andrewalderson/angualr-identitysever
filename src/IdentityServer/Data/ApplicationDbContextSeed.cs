@@ -1,8 +1,5 @@
 ﻿using OidcDemo.Services.Identity.Models;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,27 +10,13 @@ namespace OidcDemo.Services.Identity.Data
 {
     public class ApplicationDbContextSeed
     {
-        private readonly IPasswordHasher<ApplicationUser> _passwordHasher;
+        private readonly IPasswordHasher<ApplicationUser> _passwordHasher = new PasswordHasher<ApplicationUser>();
 
-        public ApplicationDbContextSeed(IPasswordHasher<ApplicationUser> passwordHasher)
-        {
-            _passwordHasher = passwordHasher;
-        }
-
-        public async Task SeedAsync(IApplicationBuilder applicationBuilder, IHostingEnvironment env, ILoggerFactory loggerFactory, int? retry = 0)
+        public async Task SeedAsync(ApplicationDbContext context, ILogger logger, int? retry = 0)
         {
             int retryForAvaiability = retry.Value;
             try
             {
-                var log = loggerFactory.CreateLogger("application seed");
-
-                var context = (ApplicationDbContext)applicationBuilder
-                    .ApplicationServices.GetService(typeof(ApplicationDbContext));
-
-                context.Database.Migrate();
-
-                var contentRootPath = env.ContentRootPath;
-                var webroot = env.WebRootPath;
 
                 if (!context.Users.Any())
                 {
@@ -47,9 +30,8 @@ namespace OidcDemo.Services.Identity.Data
                 if (retryForAvaiability < 10)
                 {
                     retryForAvaiability++;
-                    var log = loggerFactory.CreateLogger("application seed");
-                    log.LogError(ex.Message);
-                    await SeedAsync(applicationBuilder, env, loggerFactory, retryForAvaiability);
+                    logger.LogError(ex.Message);
+                    await SeedAsync(context, logger, retryForAvaiability);
                 }
             }
         }
