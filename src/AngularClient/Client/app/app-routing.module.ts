@@ -8,7 +8,7 @@ const routes: Routes = [
         canActivate: [AuthGuardService],
         canLoad: [AuthGuardService],
         children: [
-            { path: '', loadChildren: 'app/home/home.module#HomeModule' }
+            { path: '', loadChildren: () => import('app/home/home.module').then(m => m.HomeModule) }
         ]
   }
 ];
