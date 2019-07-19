@@ -3,6 +3,8 @@ WORKDIR /app
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
+RUN apt-get update -yq && apt-get upgrade -yq && apt-get install -yq curl git nano
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && apt-get install -yq nodejs build-essential
 WORKDIR /src
 COPY ["src/AngularClient/AngularClient.csproj", "src/AngularClient/"]
 RUN dotnet restore "src/AngularClient/AngularClient.csproj"
