@@ -1,15 +1,15 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "downlevelIteration": true,
-    "importHelpers": true,
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-    "baseUrl": "Client",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+    "downlevelIteration": true,
     "experimentalDecorators": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
     "target": "es2015",
     "typeRoots": [
       "node_modules/@types"
@@ -20,13 +20,13 @@
     ],
     "paths": {
       "configuration": [
-        "app/configuration"
+        "src/app/configuration"
       ],
       "shared": [
-        "app/shared"
+        "src/app/shared"
       ],
       "authentication": [
-        "app/authentication"
+        "src/app/authentication"
       ]
     },
     "module": "esnext"
