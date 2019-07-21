@@ -1,6 +1,6 @@
-﻿import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { AuthService } from 'shared';
+import { AuthService } from 'libs/shared';
 
 @Component({
   selector: 'signout',

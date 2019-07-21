@@ -1,7 +1,7 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 
-import { AuthService } from 'shared';
+import { AuthService } from 'libs/shared';
 
 @Component({
   selector: 'signin-callback',

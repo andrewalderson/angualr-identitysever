@@ -19,14 +19,11 @@
       "dom"
     ],
     "paths": {
-      "configuration": [
-        "src/app/configuration"
+      "app/*": [
+        "src/app/*"
       ],
-      "shared": [
-        "src/app/shared"
-      ],
-      "authentication": [
-        "src/app/authentication"
+      "libs/*": [
+        "src/libs/*"
       ]
     },
     "module": "esnext"

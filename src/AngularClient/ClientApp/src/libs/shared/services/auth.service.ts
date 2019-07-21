@@ -1,7 +1,7 @@
 import { Injectable, Inject, Optional } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { UserManager, User } from 'oidc-client';
-import { APP_CONFIG, AppConfig } from 'configuration';
+import { APP_CONFIG, AppConfig } from 'libs/configuration';
 
 @Injectable()
 export class AuthService {
