@@ -2,7 +2,7 @@ using IdentityServer4.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
 
-namespace PhilAndHope.Core.Identity.Api.Pages
+namespace OidcDemo.Services.Identity.Pages
 {
     public class SignedOutModel : PageModel
     {

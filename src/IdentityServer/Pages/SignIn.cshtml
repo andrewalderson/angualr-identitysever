@@ -1,5 +1,5 @@
 ﻿@page
-@model PhilAndHope.Core.Identity.Api.Pages.SignInModel
+@model OidcDemo.Services.Identity.Pages.SignInModel
 @{
     ViewData["Title"] = "Sign In";
 }
@@ -8,7 +8,7 @@
     <div class="mdc-card modal signin-modal">
         <div class="modal-body signin-modal-body">
             <div class="brand signin-brand">
-                <h1>Phil & Hope</h1>
+                <h1>Oidc Demo</h1>
             </div>
             <form id="signin-form" class="form signin-form" asp-page="Signin" asp-route-returnurl="@Model.ReturnUrl" method="post">
                 <div asp-validation-summary="All" class="error"></div>
