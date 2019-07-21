@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using OidcDemo.Services.Identity.Models;
 using OidcDemo.Services.Identity.Properties;
 
-namespace PhilAndHope.Core.Identity.Api.Pages
+namespace OidcDemo.Services.Identity.Pages
 {
     public class SignInModel : PageModel
     {

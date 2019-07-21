@@ -8,7 +8,7 @@ using OidcDemo.Services.Identity.Models;
 using System;
 using System.Threading.Tasks;
 
-namespace PhilAndHope.Core.Identity.Api.Pages
+namespace OidcDemo.Services.Identity.Pages
 {
     [AllowAnonymous]
     public class SignOutModel : PageModel

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace PhilAndHope.Core.Identity.Api.Pages
+namespace OidcDemo.Services.Identity.Pages
 {
     [Authorize]
     public class IndexModel : PageModel

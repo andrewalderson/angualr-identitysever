@@ -1,11 +1,11 @@
 ﻿@page
-@model PhilAndHope.Core.Identity.Api.Pages.SignedOutModel
+@model OidcDemo.Services.Identity.Pages.SignedOutModel
 @{
     ViewData["Title"] = "Signed Out";
 }
 
 <main class="container signout-container" style="@(Model.AutomaticRedirectAfterSignOut ? "visibility: hidden" : null)">
-    <h1>Phil & Hope</h1>
+    <h1>Oidc Demo</h1>
     <p>You have successfully signed out of the application.</p>
 
     @if (Model.PostLogoutRedirectUri != null)
