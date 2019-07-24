@@ -1,14 +1,19 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { AppConfig } from './app.config';
+import { BASE_URL } from './tokens';
 
 @Injectable()
 export class ConfigurationService {
 
-    private static url = '/configuration';
+  static readonly endpoint = '/configuration';
 
-    constructor(private http: HttpClient) { }
+  private clientConfigurationUrl: string;
+
+  constructor(@Inject(BASE_URL) baseUrl: string, private http: HttpClient) {
+    this.clientConfigurationUrl = `${baseUrl.replace(/\/$/, '')}${ConfigurationService.endpoint}`;
+  }
 
     private _config: AppConfig;
 
@@ -18,7 +23,7 @@ export class ConfigurationService {
 
     load() {
         return new Promise((resolve, reject) => {
-            this.http.get<AppConfig>(ConfigurationService.url)
+          this.http.get<AppConfig>(this.clientConfigurationUrl)
                 .subscribe((data) => {
                     this._config = data;
                     resolve();
