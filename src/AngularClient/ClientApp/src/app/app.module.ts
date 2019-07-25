@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { SharedModule } from 'libs/shared';
 import { ConfigurationModule } from 'libs/configuration';
-import { AuthenticationModule } from './authentication';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
