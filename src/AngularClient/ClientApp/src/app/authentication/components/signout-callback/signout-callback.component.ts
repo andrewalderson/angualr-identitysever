@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'libs/shared';
 
 @Component({
-  selector: 'signout-callback',
+  selector: 'app-signout-callback',
   template: '',
 })
 export class SignoutCallbackComponent implements OnInit {

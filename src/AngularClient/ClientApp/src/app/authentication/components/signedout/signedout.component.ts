@@ -1,7 +1,7 @@
-﻿import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'signedout',
+  selector: 'app-signedout',
   templateUrl: './signedout.component.html',
   styleUrls: ['./signedout.component.scss']
 })

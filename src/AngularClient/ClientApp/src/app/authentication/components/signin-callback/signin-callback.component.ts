@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import { AuthService } from 'libs/shared';
 
 @Component({
-  selector: 'signin-callback',
+  selector: 'app-signin-callback',
   template: '',
 })
 export class SigninCallbackComponent implements OnInit {
